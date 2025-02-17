@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/error.js";
 import { v2 } from "cloudinary";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Listing from "../models/listingModel.js";
 
 const updateUser = async (req, res, next) => {

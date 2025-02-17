@@ -1,5 +1,5 @@
 import User from "../models/userModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { errorHandler } from "../utils/error.js";
 import { v2 } from "cloudinary";
