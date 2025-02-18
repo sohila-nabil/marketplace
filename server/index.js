@@ -9,8 +9,9 @@ import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import path from "path"
+import { fileURLToPath } from "url";
 
-const __dirname = path.resolve()
+
 const app = express();
 
 dbConnection();
@@ -38,10 +39,20 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/listing", listingRouter);
 
-app.use(express.static(path.join(__dirname,'/client/dist')));
-app.get('*',(req,res)=>{
-  res.sendFile(path.join(__dirname,'client','dist','index.html'))
-})
+// app.use(express.static(path.join(__dirname,'/client/dist')));
+// app.get('*',(req,res)=>{
+//   res.sendFile(path.join(__dirname,'client','dist','index.html'))
+// })
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the React build folder
+app.use(express.static(path.join(__dirname, "client", "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Interal Server Error";
